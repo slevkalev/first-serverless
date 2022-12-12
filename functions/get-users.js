@@ -6,9 +6,9 @@ exports.handler = async function () {
   const sql = "SELECT * FROM `picks`"
   const qResponse = connection.query(sql, (err, results) => {
     if (err) {
-      res.send(err)
+      throw err
     }
-    res.json(results)
+    return results
   })
   return {
     statusCode: 200,
