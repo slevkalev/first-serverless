@@ -1,6 +1,6 @@
 exports.handler = async function () {
   return {
-    statsCode: 200,
+    statusCode: 200,
     body: JSON.stringify({
       message: "hello world",
     }),
