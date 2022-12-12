@@ -1,19 +1,15 @@
 require("dotenv").config()
-const mysql = require("mysql2")
-const connection = mysql.createConnection(process.env.DATABASE_URL)
+const mysql = require("mysql2/promise")
 
 exports.handler = async function () {
-  const sql = "SELECT * FROM `picks`"
-  const qResponse = connection.query(sql, (err, results) => {
-    if (err) {
-      throw err
-    }
-    return results
-  })
+  const connection = await mysql.createConnection(process.env.DATABASE_URL)
+  const sql = "SELECT * FROM `golfers`"
+  const [rows] = await connection.execute(sql)
+
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: qResponse,
+      data: rows,
     }),
   }
 }
